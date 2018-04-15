@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+ptpython = "*"
+pylint = "*"
+
+[packages]
+aiohttp = "*"
+"beautifulsoup4" = "*"
+lxml = "*"
+PyYAML = "*"
+
+[requires]
+python_version = "3.6"
