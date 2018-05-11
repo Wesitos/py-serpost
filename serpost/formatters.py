@@ -10,6 +10,10 @@ def json_serial(obj):
         return obj.strftime('%d/%m/%Y')
     raise TypeError ("Type {} not serializable".format(type(obj)))
 
+def summarize(obj):
+    if not hasattr(obj, 'items'):
+        return obj
+    return dict(obj.get('historia', [{}])[-1], estado=obj.get('estado', ''))
 
 def json_formatter(packages_dict):
     return json.dumps(packages_dict, default=json_serial, indent=2, ensure_ascii=False)

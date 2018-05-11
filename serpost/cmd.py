@@ -3,7 +3,7 @@ import asyncio
 import argparse
 from datetime import datetime
 from .aio import execute
-from .formatters import json_formatter, yaml_formatter
+from .formatters import json_formatter, yaml_formatter, summarize
 
 formatters = dict(
     json=json_formatter,
@@ -25,6 +25,9 @@ def main():
                         default=10, help='numero de peticiones paralelas')
     parser.add_argument('file', nargs='?', type=argparse.FileType('r'),
                         help='Archivo con los codigos de rastreo (uno por linea)')
+    parser.add_argument('--detailed', '-d', type=bool, nargs='?',
+                        const=True, default=False,
+                        help='Mostrar informacion detallada')
     parser.add_argument('--tracking', '-t', metavar='T', nargs='+', type=str,
                         help='Codigos de rastreo a consultar')
 
@@ -34,6 +37,7 @@ def main():
     formatter = formatters.get(args.format)
     year = args.year
     tracking = args.tracking
+    detailed = args.detailed
 
     if tracking is None and args.file is None:
         parser.print_help()
@@ -43,7 +47,10 @@ def main():
         tracking = args.file.read().upper().split()
 
     async def task():
-        print(formatter(await execute(tracking, year, concurrency)))
+        data = await execute(tracking, year, concurrency)
+        if not detailed:
+            data = {k: summarize(d) for k,d in data.items()}
+        print(formatter(data))
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(task())
