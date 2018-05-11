@@ -18,6 +18,20 @@ Indicando los numeros de rastreo como parametros::
 
     $ serpost -t EA325602591CN RF495973328SG
     EA325602591CN:
+      descripcion: FUE ENTREGADO
+      destino: ADMINISTRACION POSTAL LIMA
+      estado: ENTREGADO
+      fecha: 2018-01-23 00:00:00
+    RF495973328SG:
+      descripcion: SALIO A DISTRIBUCION
+      destino: OFICINA POSTAL CHEPEN
+      estado: PENDIENTE DE ENTREGA
+      fecha: 2018-02-02 00:00:00
+
+Para devolver la informacion detallada::
+
+    $ serpost --detailed -t EA325602591CN RF495973328SG
+    EA325602591CN:
       año: 2018
       codigo: EA325602591CN
       destino: ADMINISTRACION POSTAL LIMA
