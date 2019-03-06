@@ -75,8 +75,8 @@ async def execute(code_list, year, concurrency=5):
             try:
                 info = await info_fut
             except aio.ClientError as err:
-                logging.exception('Error requesting data for "{}"'.format(code))
-                logging.exception(err)
+                logger.exception('Error requesting data for "{}"'.format(code))
+                logger.exception(err)
                 info = dict(error=str(err))
             finally:
                 res_dict[code] = info
