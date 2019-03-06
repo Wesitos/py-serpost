@@ -15,9 +15,8 @@ setup(name='py-serpost',
       packages=['serpost'],
       install_requires=[
           'aiohttp>=3.1.3',
-          'pyyaml>=3.10',
+          'pyyaml>=4.2b1',
           'beautifulsoup4',
-          'lxml',
       ],
       python_requires='>=3.5.3',
       entry_points={

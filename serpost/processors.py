@@ -20,7 +20,7 @@ def process_fecha(raw_fecha):
 
 def process_package_details(details):
     """Cleans the response of the detailed information request"""
-    soup = BeautifulSoup(details['ResulQuery'], 'lxml')
+    soup = BeautifulSoup(details['ResulQuery'], 'html.parser')
     texts = [cell.text.strip()
              for row in soup.find_all('tr')
              for cell in row.find_all('td')]
