@@ -16,7 +16,7 @@ Cómo utilizar
 
 Indicando los numeros de rastreo como parametros::
 
-    $ serpost -t EA325602591CN RF495973328SG
+    $ serpost -y 2018 -t EA325602591CN RF495973328SG
     EA325602591CN:
       descripcion: FUE ENTREGADO
       destino: ADMINISTRACION POSTAL LIMA
@@ -30,7 +30,7 @@ Indicando los numeros de rastreo como parametros::
 
 Para devolver la informacion detallada::
 
-    $ serpost --detailed -t EA325602591CN RF495973328SG
+    $ serpost --detailed -y 2018 -t EA325602591CN RF495973328SG
     EA325602591CN:
       año: 2018
       codigo: EA325602591CN
