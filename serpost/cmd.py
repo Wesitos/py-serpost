@@ -1,9 +1,13 @@
 """Command line interface"""
+import logging
 import asyncio
 import argparse
 from datetime import datetime
 from .aio import execute
 from .formatters import json_formatter, yaml_formatter, summarize
+
+base_logger = logging.getLogger(__package__)
+logger = logging.getLogger(__name__)
 
 formatters = dict(
     json=json_formatter,
@@ -30,6 +34,9 @@ def main():
                         help='Mostrar informacion detallada')
     parser.add_argument('--tracking', '-t', metavar='T', nargs='+', type=str,
                         help='Codigos de rastreo a consultar')
+    parser.add_argument('--debug', '-D', type=bool, nargs='?',
+                        const=True, default=False,
+                        help='Imprime informacion de depuración')
 
     args = parser.parse_args()
 
@@ -38,6 +45,11 @@ def main():
     year = args.year
     tracking = args.tracking
     detailed = args.detailed
+
+    if args.debug:
+        logging.basicConfig()
+        base_logger.setLevel(logging.DEBUG)
+        logger.info('Logging level set to DEBUG')
 
     if tracking is None and args.file is None:
         parser.print_help()

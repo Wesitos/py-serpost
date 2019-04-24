@@ -1,5 +1,6 @@
 """Http request logic implemented with aiohttp"""
 import logging
+import json
 import asyncio
 import aiohttp as aio
 from .processors import process_package_details, process_package_summary
@@ -14,8 +15,11 @@ async def fetch_package_summary(session, code, year):
         package_summary_url,
         json=package_summary_payload(code, year)
     )
+    body = await res.json()
 
-    data = (await res.json()).get('d')
+    logger.debug('Raw summary response: %s', json.dumps(body, indent=2))
+
+    data = body.get('d')
 
     if data is None:
         return None
@@ -30,7 +34,11 @@ async def fetch_package_details(session, destination, code, year):
         json=package_details_payload(code, year, destination)
     )
 
-    data = (await res.json()).get('d')
+    body = await res.json()
+
+    logger.debug('Raw details response: %s', json.dumps(body, indent=2))
+
+    data = body.get('d')
 
     if data is None:
         return None
