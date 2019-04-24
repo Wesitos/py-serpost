@@ -1,4 +1,4 @@
-"""Json response handling logic"""
+"""API response processing logic"""
 import logging
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -16,20 +16,20 @@ def process_fecha(raw_fecha):
         logger.exception('Obtenida una cadena de fecha invalida %s', raw_fecha)
         return None
 
+def process_package_details_item(details):
+    """Cleans the response of one row of the detailed information request"""
+    field_dict = dict(
+        fecha=('RetornoCadena3', process_fecha),
+        destino=('RetornoCadena2', str),
+        descripcion=('RetornoCadena4', str),
+    )
 
-def process_package_details(details):
+    return {k:func(details[v]) for k, (v, func) in field_dict.items()}
+
+
+def process_package_details(details_list):
     """Cleans the response of the detailed information request"""
-    soup = BeautifulSoup(details['ResulQuery'], 'html.parser')
-    texts = [cell.text.strip()
-             for row in soup.find_all('tr')
-             for cell in row.find_all('td')]
-    row_list = [texts[i:i+3] for i in range(0, len(texts), 3)]
-
-    return [dict(
-        destino=destino,
-        fecha=process_fecha(fecha),
-        descripcion=texto,
-    ) for (destino, fecha, texto) in row_list]
+    return [process_package_details_item(details) for details in details_list]
 
 
 def process_package_summary(summary):
@@ -42,7 +42,7 @@ def process_package_summary(summary):
         origen=('RetornoCadena5', str),
         destino=('RetornoCadena6', str),
         tipo=('RetornoCadena7', str),
-        observacion=('RetornoCadena8', str)
+        observacion=('RetornoCadena8', lambda x: None if x == '-' else x)
     )
 
-    return {k:t(summary[v]) for k,(v, t) in field_dict.items()}
+    return {k:func(summary[v]) for k, (v, func) in field_dict.items()}
