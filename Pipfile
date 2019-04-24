@@ -9,7 +9,6 @@ pylint = "*"
 
 [packages]
 aiohttp = "*"
-"beautifulsoup4" = "*"
 PyYAML = "*"
 
 [requires]

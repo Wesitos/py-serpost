@@ -1,7 +1,6 @@
 """API response processing logic"""
 import logging
 from datetime import datetime
-from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
 
