@@ -79,6 +79,7 @@ async def execute(code_list, year, concurrency=5):
         tracking_dict = track_many(session, code_list, year)
 
         res_dict = {}
+        info = None
         for code, info_fut in tracking_dict.items():
             try:
                 info = await info_fut
