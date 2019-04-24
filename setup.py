@@ -5,7 +5,7 @@ if sys.version_info < (3, 5, 3):
     raise RuntimeError("Py-serpost requires Python 3.5.3+")
 
 setup(name='py-serpost',
-      version='0.3.0',
+      version='0.4.0',
       description='Tracking de paquetes de Serpost Perú sin autenticación',
       long_description=open('README.rst').read(),
       url='https://github.com/wesitos/py-serpost',
