@@ -11,10 +11,9 @@ def process_fecha(raw_fecha):
         return None
 
     try:
-        return datetime.strptime(raw_fecha, '%m/%d/%Y %I:%M:%S %p')
+        return datetime.strptime(raw_fecha, '%d/%m/%Y')
     except ValueError:
-        logger.exception('Obtenida una cadena de fecha infalida {}'
-                         .format(repr(raw_fecha)))
+        logger.exception('Obtenida una cadena de fecha invalida %s', raw_fecha)
         return None
 
 
