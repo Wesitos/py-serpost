@@ -4,6 +4,7 @@ def package_summary_payload(code, year):
     """Returns the summary endpoint payload json (as a dict)"""
     return dict(
         Anio=str(year),
+        Filtro=0,
         Tracking=code
     )
 
